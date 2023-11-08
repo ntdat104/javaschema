@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: java-schema
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysqltestdb
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: root
+      database: mongotestdb
+      port: 27017
+      host: localhost
+      auto-index-creation: true
