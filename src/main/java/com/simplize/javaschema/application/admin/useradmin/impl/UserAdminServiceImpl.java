@@ -1,6 +1,7 @@
 package com.simplize.javaschema.application.admin.useradmin.impl;
 
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import com.simplize.javaschema.application.admin.useradmin.UserAdminService;
 import com.simplize.javaschema.application.admin.useradmin.converter.UserAdminConverter;
@@ -10,19 +11,22 @@ import com.simplize.javaschema.application.admin.useradmin.form.UserAdminUpdateR
 import com.simplize.javaschema.domain.model.user.User;
 import com.simplize.javaschema.domain.repository.user.UserRepository;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+@Service
 public class UserAdminServiceImpl implements UserAdminService {
 
     private final UserRepository userRepository;
     private final UserAdminConverter userAdminConverter;
 
+    public UserAdminServiceImpl(UserRepository userRepository, UserAdminConverter userAdminConverter) {
+        this.userRepository = userRepository;
+        this.userAdminConverter = userAdminConverter;
+    }
+
     @Override
     public UserAdminDto create(UserAdminCreateRequest request) {
-        User create = userAdminConverter.convertToModel(request, new User())
-
-        return null;
+        User create = userAdminConverter.convertToModel(request, new User());
+        User user = userRepository.save(create);
+        return userAdminConverter.convert(user);
     }
 
     @Override
